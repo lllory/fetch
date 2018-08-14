@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+<style>
+    table{
+        border-collapse: collapse;
+        text-align: center;
+    }
+    td{
+        width: 50px;
+        border: 1px solid gray;
+    }
+    th{
+        width: auto;
+        border: 1px solid gray;
+    }
+    .color{
+        background: yellow;
+    }
+    .hover{
+        color: red;
+    }
+</style>
+</head>
+<body>
+    <div class="box">
+        <table>
+            <tr>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for='(item,index) in list' :class='{"color":index % 2 !=0}'>
+                <td >{{item.name}}</td>
+                <td >{{item.age}}</td>
+                <td>
+                    <a href="#" @click='change(item)' >修改</a>
+                    <a href="#" @click='del(index)'>删除</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+<script src="js/vue.js"></script>
+<script>
+    new Vue({
+        el:'.box',
+        data:{
+            list:[
+                {
+                    name:'罗丽',
+                    age:15
+                },
+                {
+                    name:'樊狗',
+                    age:20
+                },
+                {
+                    name:'梁骚包',
+                    age:11
+                },
+                {
+                    name:'张飞',
+                    age:20
+                },
+            ]
+        },
+        methods:{
+            del(index){
+                if(confirm("确定删除吗？")){
+                   this.list.splice(index,1);
+                }  
+            },
+            change(val){
+                
+               var newName= prompt("修改姓名："+val.name);
+               var newAge = prompt("修改年龄："+val.age)
+              
+              if(newName=="" || newAge==""){
+                   return  val.name +""+ val.age;
+                }
+                 val.name =newName;
+                 val.age=newAge;
+            }
+        }
+    })
+</script>
+</body>
+</html>
